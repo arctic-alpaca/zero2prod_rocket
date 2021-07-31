@@ -2,7 +2,6 @@
 extern crate rocket;
 
 use rocket::{Build, Rocket};
-use zero2prod_rocket::run;
 use zero2prod_rocket::startup::run;
 
 #[launch]

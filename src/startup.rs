@@ -8,12 +8,11 @@ use rocket::{Build, Rocket};
 use rocket_db_pools::Connection;
 use rocket_db_pools::Database;
 
-use crate::routes::health_check;
-use crate::routes::subscribe;
+use crate::routes::{health_check, subscribe};
 
 #[derive(Database)]
 #[database("newsletter")]
-pub(crate) struct Newsletter(rocket_db_pools::sqlx::PgPool);
+pub struct Newsletter(rocket_db_pools::sqlx::PgPool);
 
 pub fn run() -> Rocket<Build> {
     //let figment = rocket::Config::figment().merge(("port", 0));
