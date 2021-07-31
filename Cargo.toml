@@ -5,4 +5,19 @@ edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+path = "src/main.rs"
+name = "zero2prod_rocket"
+
 [dependencies]
+# rocket = "0.5.0-rc.1"
+rocket = { git = "https://github.com/SergioBenitez/Rocket", rev = "3b9fd56" }
+rocket_db_pools = { git = "https://github.com/SergioBenitez/Rocket", rev = "3b9fd56" , features = ["sqlx_postgres"]}
+
+[dependencies.sqlx]
+version = "0.5"
+default-features = false
+features = ["macros", "uuid", "chrono", "migrate", "postgres"]

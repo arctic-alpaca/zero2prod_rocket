@@ -1,0 +1,11 @@
+[debug]
+address = "127.0.0.1"
+port = 8000
+ident = "Rocket"
+log_level = "normal"
+cli_colors = "true"
+# secret_key = ""
+
+
+[default.databases.newsletter]
+url = "postgres://postgres:password@localhost:5432/newsletter"
