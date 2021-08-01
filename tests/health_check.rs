@@ -1,7 +1,7 @@
 use rocket::http::{ContentType, Status};
 use rocket::local::blocking::Client;
 use rocket_db_pools::Database;
-use zero2prod_rocket::startup::{run, Newsletter};
+use zero2prod_rocket::startup::{run, run_with_random_database_name, Newsletter};
 
 // Random port is not needed, rocket creates a local instance without binding to a port.
 // Tests are executed by requests being passed to rocket without networking (skipping hyper)
@@ -20,9 +20,10 @@ async fn subscribe_returns_a_200_for_valid_form_data() {
 
     let body = "name=le%20guin&email=ursula_le_guin%40gmail.com";
 
-    let client = Client::tracked(run())
+    let client = Client::tracked(run_with_random_database_name().await)
         .await
         .expect("Could not start Rocket instance.");
+
     let response = client
         .post("/subscriptions")
         .header(ContentType::Form)

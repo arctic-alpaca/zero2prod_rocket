@@ -15,6 +15,9 @@ if ! [ -x "$(command -v sqlx)" ]; then
   exit 1
 fi
 
+# kill container if it's already running
+podman rm -f -i postgres_db
+
 # Check if a custom user has been set, otherwise default to 'postgres'
 DB_USER=${POSTGRES_USER:=postgres}
 # Check if a custom password has been set, otherwise default to 'password'
@@ -29,6 +32,7 @@ podman run \
   -e POSTGRES_PASSWORD=${DB_PASSWORD} \
   -e POSTGRES_DB=${DB_NAME} \
   -p "${DB_PORT}":5432 \
+  --name=postgres_db \
   -d docker://postgres \
   postgres -N 1000
   # ^ Increased maximum number of connections for testing purposes

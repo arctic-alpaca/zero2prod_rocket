@@ -18,7 +18,7 @@ pub async fn subscribe(
     mut db: Connection<Newsletter>,
     form_data: Form<Strict<FormData>>,
 ) -> Status {
-    sqlx::query!(
+    match sqlx::query!(
         r#"
         INSERT INTO subscriptions (id, email, name, subscribed_at)
         VALUES ($1, $2, $3, $4)
@@ -29,7 +29,12 @@ pub async fn subscribe(
         Utc::now()
     )
     .execute(&mut *db)
-    .await;
-
-    Status::Ok
+    .await
+    {
+        Ok(_) => Status::Ok,
+        Err(e) => {
+            println!("Failed to execute query: {}", e);
+            Status::InternalServerError
+        }
+    }
 }
