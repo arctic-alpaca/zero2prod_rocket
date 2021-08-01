@@ -1,14 +1,8 @@
-use rocket::form::FromForm;
-use rocket::form::{Form, Strict};
-use rocket::get;
-use rocket::http::Status;
-use rocket::post;
 use rocket::routes;
 use rocket::{Build, Rocket};
-use rocket_db_pools::Connection;
-use rocket_db_pools::Database;
+use rocket_db_pools::{sqlx, Database};
 
-use crate::routes::{health_check, subscribe};
+use crate::routes::{health_check_route, subscribe};
 
 #[derive(Database)]
 #[database("newsletter")]
@@ -19,6 +13,6 @@ pub fn run() -> Rocket<Build> {
     //rocket::custom(figment).mount("/health_check", routes![health_check])
     rocket::build()
         .attach(Newsletter::init())
-        .mount("/health_check", routes![health_check])
+        .mount("/health_check", routes![health_check_route])
         .mount("/subscriptions", routes![subscribe])
 }

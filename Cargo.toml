@@ -16,6 +16,8 @@ name = "zero2prod_rocket"
 # rocket = "0.5.0-rc.1"
 rocket = { git = "https://github.com/SergioBenitez/Rocket", rev = "3b9fd56" }
 rocket_db_pools = { git = "https://github.com/SergioBenitez/Rocket", rev = "3b9fd56" , features = ["sqlx_postgres"]}
+chrono = "0.4.19"
+uuid = { version = "0.8.2", features = ["v4"] }
 
 [dependencies.sqlx]
 version = "0.5"
